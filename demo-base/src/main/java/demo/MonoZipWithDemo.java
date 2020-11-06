@@ -8,7 +8,12 @@ public class MonoZipWithDemo {
         Mono.empty().zipWith(Mono.just("bbb")).doOnNext(objects -> {
             System.out.println(objects.getT1());
             System.out.println(objects.getT2());
-        }).subscribe();
-        Thread.sleep(10000L);
+        }).block();
+
+        Mono.just("aaa").zipWith(Mono.justOrEmpty(Mono.empty())).doOnNext(objects -> {
+            System.out.println(objects.getT1());
+            System.out.println(objects.getT2());
+        }).block();
+
     }
 }
